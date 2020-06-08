@@ -1,5 +1,5 @@
-import React from 'react';
-import {View, StyleSheet, TouchableOpacity, Text, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {View, StyleSheet, TouchableOpacity, Text, ScrollView, Image } from 'react-native';
 import {Feather as Icon} from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import {useNavigation} from '@react-navigation/native';
@@ -8,10 +8,18 @@ import {SvgUri} from 'react-native-svg';
 
 const Points = () => {
 
+    useEffect(() => {
+        
+    }, []);
+
     const navigate = useNavigation();
 
     function handleNavigateBack(){
         navigate.goBack();
+    }
+
+    function handleNavigateToDetail(){
+        navigate.navigate('Detail');
     }
 
     return (
@@ -33,7 +41,23 @@ const Points = () => {
                          latitudeDelta: 0.014,
                          longitudeDelta: 0.014
                      }}
-                    />
+                    >
+                        <Marker
+                            style={styles.mapMarker} 
+                            onPress={handleNavigateToDetail}
+                            coordinate={{
+                               latitude: -22.3909612,
+                               longitude: -47.5570119,  
+                            }}
+                        >
+                            <View style={styles.mapMarkerContainer}>
+                                <Image
+                                    style={styles.mapMarkerImage} 
+                                    source={{ uri: 'https://blog.guiabolso.com.br/wp-content/uploads/2018/02/mercado-1-1024x681.jpg'}}/>
+                                <Text style={styles.mapMarkerTitle}>Mercado</Text>
+                            </View>
+                        </Marker>
+                    </MapView>
                 </View>
             </View>
             <View style={styles.itemsContainer}>
